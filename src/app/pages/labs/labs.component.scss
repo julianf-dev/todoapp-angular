@@ -1,0 +1,22 @@
+.container{
+  padding: 2.5rem;
+}
+button{
+  background: lightblue;
+  cursor: pointer;
+  padding: 1.5rem;
+}
+.box{
+  height: 0.625rem;
+  display: block;
+  background-color: aqua;
+}
+.message-error{
+  background-color: red;
+  color: white;
+  opacity: 0;
+  transition: all linear .5s;
+}
+.message-error.show{
+  opacity: 1;
+}

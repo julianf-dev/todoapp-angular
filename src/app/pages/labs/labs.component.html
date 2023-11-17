@@ -1,0 +1,81 @@
+<div class="container">
+  <h1>Hola esta es mi 12avo proyecto</h1>
+  <h2>{{ welcome }}</h2>
+  <ul>
+    <li *ngFor="let task of tasks()">
+      {{task}}
+    </li>
+  </ul>
+  <hr>
+  <h2>{{ 'Hola Platzi - '.repeat(4) }}</h2>
+  <p>La suma de 3 + 3 {{ 3 + 3}}</p>
+  <p>Hola soy {{ name() }}</p>
+  <hr>
+  <button [disabled]="disabled" class=""> Click me</button>
+  <hr>
+  <h3>Person</h3>
+  <p>Hola soy {{ person.name }}</p>
+  <img [src]="person().avatar" alt=""><br>
+  <input type="number" [value]="person().age">
+  <hr>
+  <button (click)="clickHandler()">Click me</button><br>
+  <button (dblclick)="clickHandler()">Double me</button>
+  <p>(change) Este cambia cuando se quita el enfoque</p>
+  <input type="number" (change)="changeHandler($event)" [value]="person().age">
+  <p>(Keydown) Este cambia medida que el usuario escribe</p>
+  <input type="text" (keydown)="keyDownHandler($event)" [value]="person().name">
+  <hr>
+  <h1>Signals</h1>
+  <p>(Keydown) Este se ejecuta con shift + t</p>
+  <input type="text" (keydown.shift.t)="changeHandler($event)" [value]="name()">
+  <p>Nombre con signal: {{ name()}}</p>
+  <h3>Signasl con arrays</h3>
+  <ul>
+    <p>Total: {{ tasks().length}}</p>
+    <li *ngFor="let task of tasks(); index as i">
+      {{i}} - {{task}}
+    </li>
+  </ul>
+  <hr/>
+  <div *ngIf="name() == 'Julian'; else noEs">
+    <span>Eres Julian</span>
+  </div>
+  <ng-template #noEs>
+    Eres Julian David
+  </ng-template>
+  <input type="number" (change)="changeAge($event)" [value]="person().age">
+
+  <div *ngIf="person().name == 'Julian' && person().age > 17; else no">
+    <span>Eres Julian y eres mayor de edad</span>
+  </div>
+  <ng-template #no>
+    No eres Julian y no eres adulto
+  </ng-template>
+  <hr>
+  <input type="text" (change)="changeName($event)" [value]="person().name">
+  <div [ngSwitch]="person().name">
+    <p *ngSwitchCase="'Julian'">Soy Julian</p>
+    <p *ngSwitchCase="'Ana'">Soy Ana</p>
+    <p *ngSwitchCase="'Nicolas'">Soy Nicolas</p>
+    <p *ngSwitchDefault>No soy nadie</p>
+  </div>
+  <hr>
+  <input type="color" [formControl]="colorCtrl">
+  <p>color: {{ colorCtrl.value }}</p>
+  <svg>
+    <g>
+      <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value" />
+    </g>
+  </svg>
+  <input type="number" [formControl]="widthCtrl">
+  <span class="box" [style.width.px]="widthCtrl.value"></span>
+  <hr>
+  <p>
+    <input type="text" [formControl]="nombreCtrl"><br>
+    <!--Esto se hace para no usar un ngIf por el desplazamiento de inputs-->
+    <span class="message-error" [class.show]="nombreCtrl.invalid && nombreCtrl.touched">Nomberinvalido</span>
+  </p>
+  <p>
+    <input type="text">
+  </p>
+</div>
