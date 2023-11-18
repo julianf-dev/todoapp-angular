@@ -3,42 +3,34 @@
     <div class="container">
       <h1>My Day</h1>
       <p>All my tasks in one place</p>
-      <input
-        class="new-todo"
-        placeholder="Type new todo"
-        autofocus
-        type="text"
-        [formControl]="newTaskCtrl"
-        (keydown.enter)="changeHandler()"
-      />
+      <input class="new-todo" placeholder="Type new todo" autofocus type="text" [formControl]="newTaskCtrl"
+        (keydown.enter)="changeHandler()" />
     </div>
   </header>
-  <div class="container todoapp-wrapper" *ngIf="tasks().length > 0">
+  @if (tasks().length > 0) {
+  <div class="container todoapp-wrapper">
     <section class="main">
       <ul class="todo-list">
-        <li
-          (dblclick)="updateTaskEditingMode(task.id)"
-          *ngFor="let task of taskByFilter(); index as i"
-          [class.completed]="task.completed"
+        @for (task of taskByFilter(); track task; let i = $index) {
+        <li (dblclick)="updateTaskEditingMode(task.id)" [class.completed]="task.completed"
           [class.editing]="task.editing">
           <div class="view">
-            <input class="toggle" type="checkbox"
-            (change)="completedTask(task.id)"
-            [checked]="task.completed" />
+            <input class="toggle" type="checkbox" (change)="completedTask(task.id)" [checked]="task.completed" />
             <label>{{ task.title}}</label>
-          <!--   <input *ngIf="task.edit" [value]="task.title" (dblclick)="editTaks($event, task.id)"> -->
+            <!--   <input *ngIf="task.edit" [value]="task.title" (dblclick)="editTaks($event, task.id)"> -->
             <button class="destroy" (click)="deleteTask(task.id)"></button>
           </div>
           <input class="edit" (keydown.enter)="updateTaskText(task.id, $event)" [value]="task.title" />
         </li>
+        }
       </ul>
     </section>
-    <footer class="footer" >
+    <footer class="footer">
       <span class="todo-count"><strong>{{taskByFilter().length}}</strong>
         @if(taskByFilter().length == 1){
-          Item
+        Item
         }@else {
-          Items
+        Items
         }
 
       </span>
@@ -47,13 +39,16 @@
           <a routerLink="/" [class.selected]="filter() == 'all'" (click)="changeFilter('all')">All</a>
         </li>
         <li>
-          <a routerLink="/pending" [class.selected]="filter() == 'pending'" (click)="changeFilter('pending')">Pending</a>
+          <a routerLink="/pending" [class.selected]="filter() == 'pending'"
+            (click)="changeFilter('pending')">Pending</a>
         </li>
         <li>
-          <a routerLink="/completed" [class.selected]="filter() == 'completed'" (click)="changeFilter('completed')">Completed</a>
+          <a routerLink="/completed" [class.selected]="filter() == 'completed'"
+            (click)="changeFilter('completed')">Completed</a>
         </li>
       </ul>
       <button class="clear-completed" (click)="deleteCompleteTasks()">Clear completed</button>
     </footer>
   </div>
+  }
 </section>
